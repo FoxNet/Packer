@@ -19,7 +19,7 @@ variable "consul_version" {
     default = "1.7.2"
 }
 variable "consul_template_version" {
-  default = "0.24.1"
+    default = "0.24.1"
 }
 variable "vault_version" {
     default = "1.3.4"
