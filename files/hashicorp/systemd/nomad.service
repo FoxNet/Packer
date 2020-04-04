@@ -6,7 +6,7 @@ After=network-online.target
 
 [Service]
 ExecReload=/bin/kill -HUP $MAINPID
-Environment="OPTIONS=server -config=/etc/nomad.d/"   # This can be overridden with the EnvironmentFile
+Environment="OPTIONS=agent -config=/etc/nomad.d/"
 EnvironmentFile=-/etc/default/nomad
 ExecStart=/usr/bin/nomad $OPTIONS
 KillMode=process
