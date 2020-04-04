@@ -1,0 +1,26 @@
+[Unit]
+Description=Vault service
+Documentation=https://www.vaultproject.io/
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=read-only
+SecureBits=keep-caps
+Capabilities=CAP_IPC_LOCK+ep
+CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
+NoNewPrivileges=yes
+Environment="OPTIONS=server -config=/etc/vault.d/"   # This can be overridden with the EnvironmentFile
+EnvironmentFile=-/etc/default/consul
+ExecStart=/bin/vault $OPTIONS
+KillSignal=SIGINT
+TimeoutStopSec=30s
+Restart=on-failure
+StartLimitInterval=60s
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target

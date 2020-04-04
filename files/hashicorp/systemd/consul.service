@@ -1,0 +1,21 @@
+[Unit]
+Description="HashiCorp Consul - A service mesh solution"
+Documentation=https://www.consul.io/
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+User=consul
+Group=consul
+Environment="OPTIONS=-server -config-dir=/etc/consul.d/"   # This can be overridden with the EnvironmentFile
+EnvironmentFile=-/etc/default/consul
+ExecStart=/usr/bin/consul $OPTIONS
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+KillSignal=SIGINT
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,24 @@
+[Unit]
+Description=Nomad
+Documentation=https://nomadproject.io/docs/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecReload=/bin/kill -HUP $MAINPID
+Environment="OPTIONS=server -config=/etc/nomad.d/"   # This can be overridden with the EnvironmentFile
+EnvironmentFile=-/etc/default/nomad
+ExecStart=/usr/bin/nomad $OPTIONS
+KillMode=process
+KillSignal=SIGINT
+LimitNOFILE=65536
+LimitNPROC=infinity
+Restart=on-failure
+RestartSec=2
+StartLimitBurst=3
+StartLimitIntervalSec=10
+TasksMax=infinity
+OOMScoreAdjust=-1000
+
+[Install]
+WantedBy=multi-user.target
