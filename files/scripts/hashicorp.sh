@@ -63,5 +63,13 @@ do
     rm -v ${file} ${file/linux_amd64.zip/SHA256SUMS}{,.sig}
 done
 
+for service in consul consul-template vault nomad
+do
+    useradd -r -U -d /var/lib/${service} ${service}
+    chown ${service}:${service} /var/lib/${service}
+done
+
 mv -v /tmp/hashicorp/{consul,vault,nomad}.d /etc/
 mv -v /tmp/hashicorp/systemd/*.service /etc/systemd/system
+
+
