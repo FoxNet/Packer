@@ -1,6 +1,8 @@
 variable "prefix" {}
 variable "domain" {}
 
+variable "consul_encryption_key" {}
+
 variable "gcp_project_id" {}
 variable "gcp_account_file" {}
 variable "gcp_source_image" {
@@ -31,4 +33,3 @@ variable "nomad_version" {
 locals {
     gcp_ssh_username = "${lookup(var.gcp_image_users, var.gcp_source_image, "root")}"
 }
-

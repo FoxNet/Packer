@@ -23,6 +23,7 @@ build {
         execute_command = "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}"
         environment_vars = [
             "DOMAIN=${var.domain}",
+            "CONSUL_ENCRYPTION_KEY=${var.consul_encryption_key}",
             "CONSUL_VERSION=${var.consul_version}",
             "CONSUL_TEMPLATE_VERSION=${var.consul_template_version}",
             "VAULT_VERSION=${var.vault_version}",

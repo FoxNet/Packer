@@ -1,6 +1,5 @@
 {
   "data_dir": "/var/lib/consul",
-  "domain": "reyuzenfold.com",
   "acl": {
     "enabled": true,
     "default_policy": "deny",

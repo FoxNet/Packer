@@ -71,6 +71,13 @@ done
 mv -v /tmp/hashicorp/{consul,vault,nomad}.d /etc/
 mv -v /tmp/hashicorp/systemd/*.service /etc/systemd/system
 
+cat <<EOF >/etc/consul.d/11-generated.json
+{
+    "encrypt": "${CONSUL_ENCRYPTION_KEY}",
+    "domain": "${DOMAIN}"
+}
+EOF
+
 cat <<EOF> /etc/dnsmasq.d/consul
 server=/${DOMAIN}/127.0.0.1#8600
 EOF
