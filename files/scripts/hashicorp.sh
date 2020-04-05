@@ -65,11 +65,22 @@ done
 
 for service in consul consul-template vault nomad
 do
-    useradd -r -U -d /var/lib/${service} ${service}
-    chown ${service}:${service} /var/lib/${service}
+    useradd --system --user-group --create-home --home-dir /var/lib/${service} ${service}
 done
 
 mv -v /tmp/hashicorp/{consul,vault,nomad}.d /etc/
 mv -v /tmp/hashicorp/systemd/*.service /etc/systemd/system
 
-
+cat <<EOF> /etc/dnsmasq.d/consul
+server=/${DOMAIN}/127.0.0.1#8600
+EOF
+if [ -f /etc/systemd/resolved.conf ]
+then
+    cat <<EOF> /etc/systemd/resolved.conf
+[Resolve]
+DNS=127.0.0.1
+Domains=${DOMAIN}
+Cache=no
+EOF
+fi
+systemctl enable dnsmasq

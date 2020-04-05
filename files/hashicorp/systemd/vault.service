@@ -13,7 +13,7 @@ SecureBits=keep-caps
 Capabilities=CAP_IPC_LOCK+ep
 CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
 NoNewPrivileges=yes
-Environment="OPTIONS=server -config=/etc/vault.d/"   # This can be overridden with the EnvironmentFile
+Environment="OPTIONS=server -config=/etc/vault.d/"
 EnvironmentFile=-/etc/default/vault
 ExecStart=/bin/vault $OPTIONS
 KillSignal=SIGINT
